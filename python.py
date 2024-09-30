@@ -13,7 +13,6 @@ def mandar_mensagem(historico):
     )
     return chat_completion
 
-# Função de calculadora simples
 def matematica():
     while True:
         pergunta = str(input("Selecione a operação (adição, subtração, multiplicação, divisão): ")).lower()
@@ -43,14 +42,84 @@ def matematica():
             print("Fechando e voltando ao menu principal...")
             break
 
-# Função principal do chatbot
+def conversor_unidades():
+    print("Conversor de unidades.")
+    while True:
+        tipo = input("Escolha a unidade (Comprimente/peso): ")
+
+        if tipo == "comprimento":
+            valor = float(input("Valor em metros: "))
+            print (f"{valor} metros é igual a {valor * 100} centímetros.")
+            print(f"{valor} metros é igual a {valor * 2.20462} polegadas.")
+        elif tipo == "peso":
+            valor = float(input("Valor em quilogramas: "))
+            print(f"{valor} kg é igual a {valor * 1000} gramas.")
+            print(f"{valor} kg é igual a {valor * 2.20362} libras")
+        else:
+            print("Tipo invalido")
+
+        continuar = input("Continuar?(s/n)").lower()
+
+        if continuar == "n":
+            break
+
+def rotina():
+    compromissos = []
+    while True:
+        print("\nAgenda: ")
+        print("1. adicionar compromisso")
+        print("2. Ver compromisso")
+        print("3. Apagar compromisso")
+        print("4. Sair da Agenda")
+
+        escolha = input("escolha o numero: ")
+
+        if escolha == "1":
+            compromisso = input("Fale um compromisso: ")
+            compromissos.append (compromisso)
+            print("compromisso adicionado!")
+        elif escolha == "2":
+            if compromissos:
+                print ("Compromissos: ")
+                for i, c in enumerate(compromissos, start=1):
+                    print(f"{i}. {c}")
+            else:
+                print("Nenhum compromisso indentificado")
+
+        elif escolha == "3":
+            if compromissos:
+                for i, c in enumerate(compromissos, start=1):
+                    print(f"{i}. {c}")
+                excluir = input("Selecione o número do compromisso a ser deletado: ")
+        
+                if excluir.isdigit():
+                    indice = int(excluir) - 1
+                    if 0 <= indice < len(compromissos):
+                        removido = compromissos.pop(indice)
+                        print(f"Compromisso '{removido}' removido.")
+                    else:
+                        print("Número inválido. Por favor, selecione um número da lista.")
+                else:
+                    print("Entrada inválida. Por favor, insira um número.")
+            else:
+                print("Não há compromissos para deletar.")
+
+        elif escolha == "4":
+            break
+        else:
+            print("nao indentificado")
+                        
 def chatbot():
     print("Olá, sou um chatbot!")
     historico = []  # Inicializa o histórico de mensagens
 
     while True:
-        escolha = input("Escolha o chat ('matematica' para calculadora ou 'chatbot' para o assistente de IA): ").lower()
-        if escolha == "matematica":
+        escolha = input("Escolha o chat ('matematica' para calculadora, 'chatbot' para o assistente de IA, 'conversor' para converter kg, 'rotina' para acessar sua agenda): ").lower()
+        if escolha == "conversor":
+            conversor_unidades()
+        elif escolha == "rotina":
+            rotina()
+        elif escolha == "matematica":
             matematica()
         elif escolha == "chatbot":
             while True:
